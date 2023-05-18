@@ -10,6 +10,7 @@
     "index.d.ts",
     "template.html"
   ],
+  "repository": "https://github.com/lsdsjy/rollup-plugin-filter-dep-graph.git",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "pnpm run build",
