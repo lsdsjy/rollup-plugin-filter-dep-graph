@@ -1,0 +1,31 @@
+{
+  "name": "rollup-plugin-filter-dep-graph",
+  "version": "0.0.4",
+  "description": "Filter and visualize the dependency graph.",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "template.html"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "pnpm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rollup-plugin"
+  ],
+  "author": "lsdsjy <lsdsjy@163.com>",
+  "license": "ISC",
+  "peerDependencies": {
+    "rollup": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.1.1",
+    "rollup": "^3.22.0",
+    "typescript": "^5.0.4"
+  }
+}

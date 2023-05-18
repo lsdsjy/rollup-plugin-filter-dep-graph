@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "moduleResolution": "node",
+        "declaration": true,
+        "module": "ESNext"
+    },
+    "include": ["*.ts"]
+}

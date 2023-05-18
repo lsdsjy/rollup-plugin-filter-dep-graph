@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Filter Dependency Graph</title>
+    <script src="https://unpkg.com/vue@3.1.5/dist/vue.global.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script
+      src="https://unpkg.com/viz.js@1.8.1/viz.js"
+      type="javascript/worker"
+    ></script>
+    <script src="https://unpkg.com/d3-graphviz@2.1.0/build/d3-graphviz.min.js"></script>
+    <script src="https://unpkg.com/naive-ui"></script>
+    <style>
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+      input[type="radio"] {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <n-select
+          v-model:value="selectedId"
+          filterable
+          placeholder="Please select a module"
+          :options="options"
+        />
+      </div>
+      <div
+        v-show="selectedId"
+        id="dep-graph"
+        ref="graphRef"
+        style="width: 800px; height: 600px"
+      ></div>
+    </div>
+
+    <script>
+      var importersMap = "data_placeholder";
+    </script>
+
+    <script>
+      const { ref, computed, watch } = Vue;
+      const app = Vue.createApp({
+        setup() {
+          const graphRef = ref();
+          const options = Object.keys(importersMap).map((id) => ({
+            value: id,
+            label: id,
+          }));
+          const selectedId = ref();
+
+          watch(selectedId, (item) => {
+            if (!item) return;
+            const links = new Set();
+            traverse(item);
+
+            graphRef.value.innerHTML = "";
+            d3.select(graphRef.value)
+              .graphviz()
+              .renderDot(
+                `digraph { node [shape=rectangle];
+                    ${Array.from(links).join("\n")}}`
+              );
+
+            function traverse(moduleId, visited = new Set()) {
+              if (visited.has(moduleId)) return;
+              visited.add(moduleId);
+              const importers = importersMap[moduleId];
+              importers?.forEach((importer) => {
+                links.add(`"${importer}" -> "${moduleId}"`);
+                traverse(importer, visited);
+              });
+            }
+          });
+
+          return {
+            options,
+            selectedId,
+            graphRef,
+          };
+        },
+      });
+      app.use(naive);
+      app.mount("#app");
+    </script>
+  </body>
+</html>
