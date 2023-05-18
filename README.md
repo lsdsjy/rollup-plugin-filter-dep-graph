@@ -17,3 +17,6 @@ export default {
     ]
 }
 ```
+
+## Credits
+Inspired by https://github.com/ondras/rollup-plugin-graph
