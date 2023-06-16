@@ -18,5 +18,7 @@ export default {
 }
 ```
 
+There will be a `graph.html` in which you can inspect the dependency graph of a specific module.
+
 ## Credits
 Inspired by https://github.com/ondras/rollup-plugin-graph
