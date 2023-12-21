@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-filter-dep-graph",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Filter and visualize the dependency graph.",
   "type": "module",
   "main": "index.js",
