@@ -8,8 +8,9 @@ export default function plugin(): Plugin {
     generateBundle() {
       let importersMap: Record<string, readonly string[]> = {};
       for (const moduleId of this.getModuleIds()) {
-        const { importers } = this.getModuleInfo(moduleId) ?? {};
-        if (importers?.length) importersMap[moduleId] = importers;
+        const { importers, dynamicImporters } = this.getModuleInfo(moduleId) ?? {};
+        const allImporters = [...(importers ?? []), ...(dynamicImporters ?? [])];
+        if (allImporters.length > 0) importersMap[moduleId] = allImporters;
       }
 
       const lcp = longestCommonPrefix(
